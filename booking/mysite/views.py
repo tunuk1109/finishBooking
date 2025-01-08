@@ -1,4 +1,6 @@
 from rest_framework import viewsets, generics, permissions, status
+
+from .filters import RoomFilter
 from .serializers import *
 from .models import *
 from .permissions import CheckUserRating
@@ -115,6 +117,8 @@ class RoomAPIView(generics.ListAPIView):
     serializer_class = RoomSerializers
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = RoomPagination
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RoomFilter
 
 
 
@@ -128,11 +132,11 @@ class RoomDetailAPIView(generics.RetrieveAPIView):
 class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all()
     serializer_class = BookingSerializers
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
 
 
 
 class ReviewsViewSet(viewsets.ModelViewSet):
     queryset = Reviews.objects.all()
     serializer_class = ReviewsSerializers
-    permission_classes = [CheckUserRating, permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [CheckUserRating]

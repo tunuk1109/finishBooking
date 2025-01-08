@@ -1,3 +1,5 @@
+from os import getenv
+
 from rest_framework import serializers
 from .models import *
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -184,11 +186,13 @@ class BookingSerializers(serializers.ModelSerializer):
     check_in = serializers.DateTimeField(format('%Y-%m-%d %H:%M'))
     check_out = serializers.DateTimeField(format('%Y-%m-%d %H:%M'))
     hotel_booking = HotelSimpleSerializers()
+    room_booking = RoomSimpleSerializers()
     user_booking = UserProfileSimpleSerializers()
 
     class Meta:
         model = Booking
-        fields = '__all__'
+        fields = ['check_in', 'check_out', 'total_price', 'hotel_booking', 'room_booking', 'user_booking']
+
 
 
 

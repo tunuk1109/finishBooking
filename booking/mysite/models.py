@@ -104,6 +104,7 @@ class Booking(models.Model):
     status_confirmed = models.CharField(choices=CONFIRMATION_STATUS, max_length=16, default='unconfirmed')
 
 
+
 class Reviews(models.Model):
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     hotel_reviews = models.ForeignKey(Hotel, on_delete=models.CASCADE, related_name='hotel_ratings')
